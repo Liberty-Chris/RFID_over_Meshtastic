@@ -43,11 +43,11 @@ Default pins for HSPI operation can be defined in your variant or overridden per
 ```ini
 [env:heltec-v3]
 build_flags =
-  -DRC522_SCK_PIN=5
-  -DRC522_MOSI_PIN=18
-  -DRC522_MISO_PIN=19
-  -DRC522_SS_PIN=21
-  -DRC522_RST_PIN=22
+  -DRC522_SCK_PIN=7
+  -DRC522_MOSI_PIN=6
+  -DRC522_MISO_PIN=5
+  -DRC522_SS_PIN=26
+  -DRC522_RST_PIN=4
 ```
 
 Or default to the values below if not overridden (my curent usage):
