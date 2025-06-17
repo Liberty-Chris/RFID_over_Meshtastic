@@ -1,4 +1,4 @@
-# Modifying Firmware for Dual SPI on Heltec V3 (LoRa + MFRC522)
+# Modifying Meshtastic Firmware for Dual SPI on Heltec V3 (LoRa + MFRC522)
 
 This guide explains how to modify your own firmware to enable simultaneous operation of the onboard LoRa transceiver and an MFRC522 RFID reader using separate SPI buses on the Heltec V3. After struggling with this personally and discovering that many people were running into problems and resorting to removing the main chip on the MFRC522 in order to cut traces and modify the PCB for I2C and UART operation, I figured there had to be a better way. This was my solution.
 
