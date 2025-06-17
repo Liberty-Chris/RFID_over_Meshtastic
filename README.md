@@ -147,4 +147,36 @@ void sendToMeshtastic(const String& msg) {
 
 The ESP32-S3 supports multiple SPI buses. By separating the MFRC522 onto its own bus (HSPI) while leaving LoRa on VSPI, you maintain performance and reliability without hardware modifications or mode switching. This keeps your firmware clean and modular.
 
+## LED Feedback and Scan Debounce
+
+After each successful tag read, the built-in LED is blinked three times to provide immediate user feedback. To avoid repeatedly sending the same UID, scans are ignored until a configurable delay has passed and the UID differs from the previous read.
+
+```cpp
+const unsigned long SCAN_DELAY_MS = 2000;
+unsigned long lastScanTime = 0;
+String lastUid = "";
+
+void loop() {
+  if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial()) {
+    String uid = "";
+    for (byte i = 0; i < rfid.uid.size; i++) {
+      uid += String(rfid.uid.uidByte[i], HEX);
+    }
+    if (millis() - lastScanTime > SCAN_DELAY_MS && uid != lastUid) {
+      // send payload here
+      for (int i = 0; i < 3; i++) {
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
+      }
+      lastScanTime = millis();
+      lastUid = uid;
+    }
+    rfid.PICC_HaltA();
+    rfid.PCD_StopCrypto1();
+  }
+}
+```
+
 
