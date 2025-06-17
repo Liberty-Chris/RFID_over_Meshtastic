@@ -4,6 +4,31 @@ This guide explains how to modify your own firmware to enable simultaneous opera
 
 This documentation walks you through how to integrate the necessary pieces into your existing project, define a second SPI bus, configure pin assignments, and build RFID-based messages that can be transmitted over Meshtastic.
 
+## Quick Start
+
+1. **Wire the MFRC522 module** to the Heltec V3 using the default pins:
+
+   | MFRC522 pin | Heltec V3 pin |
+   |-------------|---------------|
+   | SCK         | GPIO7         |
+   | MOSI        | GPIO6         |
+   | MISO        | GPIO5         |
+   | SDA/SS      | GPIO26        |
+   | RST         | GPIO4         |
+   | 3.3&nbsp;V    | 3V3           |
+   | GND         | GND           |
+
+   *(See `docs/wiring.png` for a simple wiring diagram.)*
+
+2. **Install libraries** – PlatformIO will automatically fetch the `MFRC522`
+   library and the Meshtastic bridge library as specified in `platformio.ini`.
+
+3. **Build and upload** the firmware:
+
+   ```bash
+   pio run            # compile
+   pio run -t upload  # flash to the device
+   ```
 ## Overview
 
 Default SPI Bus (VSPI): Reserved for the onboard LoRa radio (Heltec default).
